@@ -1,0 +1,126 @@
+form{
+	margin: 2em 1em;
+	color: #EEF0F2;
+	text-shadow: 0px 0px 2px #222;
+	font-size: 1.1em;
+	width: auto;
+	background-color: #92898E;
+	text-align:left;
+	padding: 1em;
+	border-radius: 3px;
+}
+
+
+body {
+	margin: 0;
+	padding: 0;
+	min-width: 300px;
+	background-color: #A2999E;
+	font-family: "Lucida Sans Unicode";
+}
+
+.range{
+	font-size: 0.8em;
+}
+
+
+a {
+	margin-top: 2em !important;
+	text-decoration: none;
+}
+
+.title{
+	padding: 1em;
+	width: auto;
+	background-color: #353B3C;
+	border-bottom: 4px solid #842B2B;
+}
+
+#remaining {
+	background: white;
+	width: 8em;
+	border: 2px solid #92898E;
+	border-radius: 3px;
+	background-color: #EEF0F2;
+	margin: 1em auto 1em auto;
+	padding: 0.3em;
+	font-size: 0.8em;
+	text-align: center;
+}
+
+input[type="number"] {
+  display: block;
+  margin: 0;
+  font-family: sans-serif;
+  appearance: none;
+  box-shadow: none;
+  width: 5.5em;
+  border-radius: none;
+  padding: 10px;
+  border: none;
+  border-bottom: solid 2px #c9c9c9;
+  transition: border 0.3s;
+}
+input[type="number"]:focus,
+input[type="number"].focus {
+	outline: none;
+  border-bottom: solid 2px #842B2B;
+}
+
+.foot{
+	text-align: center;
+	background-color: #353B3C;
+	margin-bottom: -1em;
+	margin-top: 1em;
+	padding: .2em 0;
+}
+
+h1 {
+	color: #fff;
+	font-family: "Tahoma";
+	text-align: center;
+	padding: 0;
+	margin: 0;
+}
+
+h2 {
+	color: #889092 ;
+	font-size: .9em;
+	padding: 0.3em 0;
+	font-family: "Lucida Sans Unicode";
+	margin: 0;
+	text-align: center;
+}
+
+#keep-open {
+	margin-left: 1em;
+	font-style: italic;
+}
+
+.start-button{
+	text-align: center;
+	display: block;
+	margin: 0 auto 0 auto;
+
+	background-color: #842B2B;
+	color: #EEF0F2;
+	font-family: "Lucida Sans Unicode";
+	border-radius: 0;
+	border: 0;
+	border-bottom: 3px solid #543838;
+	border-radius: 3px;
+	padding: 0.5em 1.5em;
+	width: 6.2em;
+}
+
+
+.start-button-hover:hover{
+	color: #FFF;
+	text-shadow: 0px 1px 1px #fff;	
+}
+
+input{
+	text-align: center;
+	background-color: #EEF0F2;
+	border-radius: 3px;
+}

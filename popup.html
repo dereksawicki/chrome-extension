@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+ <head>
+ 	<title>PowerDeck</title>
+ 	<script src="jquery-3.2.1.min.js"></script>
+ 	<script src="popup.js"></script>
+ 	<link rel="stylesheet" type="text/css" href="popup.css">
+ </head>
+<body>
+	<div class="title">
+		<h1>PowerDeck</h1>
+	</div>
+
+
+	<div id="wrong-url">
+		<a class="start-button login start-button-hover" href="https://tweetdeck.twitter.com/">Go to tweetdeck</a>
+	</div>
+
+
+
+	<div id="main">
+		<form>
+
+		<!-- Number of retweets  -->
+		Tweets to deck:<br><span class="range">(1-10)</span><br><input id="num_tweets" type="number" min="1" max="72" name="num_tweets" value=3>
+
+		<br>
+
+		<!-- Number of seconds betweet retweets -->
+		Minutes between decks:<br><span class="range">(30-180)</span><br><input id ="sec_interval" type="number" min="30" max="180" name="sec_interval" value=60>
+
+		<br>
+
+		<!-- Number of iterations -->
+		Iterations: <br><span class="range">(1-72)</span><br><input id = "iterations" type="number" min="1"
+		max="72" name="iterations" value = 24>
+
+		</form>
+
+
+		<button id="mybtn" class="start-button start-button-hover">Start</button>
+		<p id="remaining"></p>
+		<p id="keep-open"> *Keep this tab open when executing.</p>
+	</div>
+
+	<div class="foot">
+		<h2>&copy 2017 Derek Sawicki</h2>
+	</div>
+
+
+
+</body>
+
+</html>
