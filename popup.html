@@ -22,18 +22,18 @@
 		<form>
 
 		<!-- Number of retweets  -->
-		Tweets to deck:<br><span class="range">(1-10)</span><br><input id="num_tweets" type="number" min="1" max="72" name="num_tweets" value=3>
+		Tweets to deck:<br><span class="range">(1-4)</span><br><input id="num_tweets" type="number" min="1" max="4" name="num_tweets" value=3 required>
 
 		<br>
 
-		<!-- Number of seconds betweet retweets -->
-		Minutes between decks:<br><span class="range">(30-180)</span><br><input id ="sec_interval" type="number" min="30" max="180" name="sec_interval" value=60>
+		<!-- Number of minutes betweet retweets -->
+		Minutes between decks:<br><span class="range">(30-180)</span><br><input id ="sec_interval" type="number" min="30" max="180" name="sec_interval" value=60 required>
 
 		<br>
 
 		<!-- Number of iterations -->
 		Iterations: <br><span class="range">(1-72)</span><br><input id = "iterations" type="number" min="1"
-		max="72" name="iterations" value = 24>
+		max="72" name="iterations" value = 24 required>
 
 		</form>
 

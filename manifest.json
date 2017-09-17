@@ -1,13 +1,18 @@
 {
 	"manifest_version": 2,
 
-	"name": "Autodeck",
+	"name": "PowerDeck",
 	"description": "This extension automates certain actions on tweetdeck",
 	"version": "1.0",
 
 	"browser_action": {
 		"default_icon": "icon.png",
 		"default_popup": "popup.html"
+	},
+	"icons": {
+		"16": "icon.png",
+		"48": "icon48x48.png",
+		"128": "icon128x128.png"
 	},
 	"permissions": [
 		"activeTab",

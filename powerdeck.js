@@ -3,14 +3,19 @@
 console.log("===POWERDECK===");
 console.log(form);
 
-var num_tweets = parseInt(form[0].value);
-var ms_interval = parseInt(form[1].value*60) * 1000;
-var iterations = parseInt(form[2].value)-1;
+
+var num_tweets  = startNumTweets = parseInt(form[0].value);
+var ms_interval = startMSI = parseInt(form[1].value*60) * 1000;
+var iterations  = startIt = parseInt(form[2].value);
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if (request.msg == "hello") {
-            	sendResponse({remaining: iterations});
+            	sendResponse({remaining: iterations,
+            					nt: startNumTweets,
+            				    ti: (startMSI/1000/60),
+            					it: startIt
+            				});
         }
 
         if (request.msg == "stop"){
@@ -22,12 +27,16 @@ chrome.runtime.onMessage.addListener(
 
 
 autodeck();
+iterations-=1;
 
-if (iterations > 0) {
+if (iterations == 0)
+	alert("Execution Complete");
+else if (iterations > 0) {
 	var interval = setInterval( function (){
 
 		if (iterations <= 0) {
 			clearInterval(interval);
+			alert("Execution Complete.");
 		}
 
 		autodeck();
@@ -48,109 +57,89 @@ function autodeck() {
 	for (var i = 0; i < num_tweets; i++) {
 
 		try {
-			autoretweet();
-			unlike();
+			autoretweet( function (){
+				unlike();	
+			});
+
 		} catch (err) {
 			// something went wrong, shut it down
+			alert(err);
 			console.log(err);
 			iterations = 0;
 			clearInterval(interval);
+			break;
 		}
 	}	
 }
 
 
-function autoretweet(){
+function autoretweet(callback){
 	// Open retweet options
 
-	var tweet_options = $(".is-favorite").first().find("footer").find("ul");
-	//console.log(tweet_options);
+	var favorites_column = $(".column-type-favorite");
+
+	if (favorites_column.length == 0) {
+		throw "Favorites column could not be found.";
+		return;
+	}
+
+	var tweet_options = favorites_column.find(".is-favorite").last().find("footer").find("ul");
+	console.log(tweet_options);
+
+	if (tweet_options.length == 0) {
+		throw "No favorited tweet(s) could be found.";
+		return;
+	}
 
 
 	var retweet_btn = tweet_options.find("a").eq(1);
 	//console.log(retweet_btn);
-	$(retweet_btn).find("i").click();
-
+	if ($(retweet_btn).find("i").length == 0) {
+		throw "Retweet button could not be found.";
+		return;
+	}
+	else {
+		$(retweet_btn).find("i").click();
+	} 
 
 	// make sure all the accounts are set on
 	var accounts = $(".accs.cf.js-account-selector").find("li").not(".acc-selected");
 	$(accounts).each( function (index) {
-		$(this).click();
+		try {
+			$(this).click();
+		} catch(e) {
+			throw e + "\nCould not select all accounts.";
+			return;
+		}
 	});
 
 	// find retweet button
 	var retweet = $(document).find("button.js-retweet-button");
 	//console.log(retweet);
 
-	try {
+	if (retweet.length != 0) {
 		$(retweet).click();
-	} catch (e) {
-		throw e;
 	}
+	else {
+		throw "\nRetweet submission button could not be found.";
+		return;
+	}
+
+	callback();
 }
 
 function unlike() {
-	var like_btn = $(".is-favorite").first().find("footer").find("ul").find("li").eq(2).find("a"); //.eq(2);
+	var like_btn = $(".column-type-favorite").find(".is-favorite").last().find("footer").find("ul").find(".margin-l--1").find("a"); //.childNodes(5).find("a"); //.last().find("footer").find("ul")
+
+	console.log("like_btn: ");
 	console.log(like_btn);
+
 
 	try {
 		$(like_btn)[0].click();
 	} catch(e) {
-		throw e;
+		throw e+ "\nFavorite button could not be found.";
+		return;
 	}
 
 }
-
-/*
-function autolike() {
-	
-	//  Open up options menu
-	var options_btn_clickable = $(options_btn).children().first()
-	console.log(options_btn_clickable);
-	$(options_btn_clickable).click();
-
-
-
-	// Select like from accounts
-	var options_menu = $(tweet_options).parent().find("div").eq(2);
-	console.log(options_menu);
-
-	var menu_list = $(options_menu).find("ul");
-	console.log(menu_list);
-
-	var like_from_accounts_btn = $(menu_list).find("li").eq(7).find("a");
-	console.log(like_from_accounts_btn);
-
-	// click
-	setTimeout(function() {
-		console.log("open!");
-		$(like_from_accounts_btn)[0].click();
-	}, 2000 );
-
-
-	like_from_accounts = options_menu.childNodes[3].childNodes[0];
-	setTimeout(function() {	
-				console.log(like_from_accounts);
-				like_from_accounts.click();}, 
-				2000);
-
-}
-*/
-
-/*
-function openclosecomment() {
-	// Find the tweet options button
-	tweet = document.getElementsByClassName("is-favorite")[0];
-	tweet_footer = tweet.childNodes[5]
-	tweet_actions = tweet_footer.childNodes[1]
-
-
-	comment_button = tweet_actions.childNodes[1].childNodes[1];
-	comment_button.click();
-
-	closebtn = $(".js-inline-compose-close.btn.btn-square.btn-neutral");
-	console.log(closebtn);
-	setTimeout(function() {$(closebtn).click();}, 2000);
-}
-*/
-

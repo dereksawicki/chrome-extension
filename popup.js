@@ -18,8 +18,11 @@ $(document).ready(function() {
 			handleStopClicked();
 			isExecuting = false;
 		} else {
-			handleStartClicked();
-			isExecuting = true;
+			if (formValidation()) {
+				handleStartClicked();
+				isExecuting = true;
+			}
+
 		}
 	});
 
@@ -29,6 +32,13 @@ $(document).ready(function() {
 
 	    	// If theres a response, then it is already running.
 	        if (response) {
+
+	        	$('input[name="num_tweets"]').val(response.nt);
+	        	$('input[name="sec_interval"]').val(response.ti);
+	        	$('input[name="iterations"]').val(response.it);
+
+
+
 	        	if (response.remaining <= 0) {
 	        		isExecuting = false;
 
@@ -105,6 +115,21 @@ function handleStopClicked() {
 	});
 }
 
+function formValidation() {
+
+	var f = $('form').serializeArray();
+
+	if ( f[0].value > 4 || f[0].value < 1) {
+		return false;
+	}
+	else if ( f[1].value > 180 || f[1].value < 30) {
+		return false;
+	}
+	else if ( f[2].value > 72 || f[2].value < 1) {
+		return false;
+	}
+	return true;
+}
 
 
 function showStartDisplay () {
